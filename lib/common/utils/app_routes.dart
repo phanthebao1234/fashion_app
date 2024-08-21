@@ -2,7 +2,7 @@
 
 
 import 'package:fashion_app/src/entrypoint/views/entrypoint.dart';
-import 'package:fashion_app/src/onboarding/views/onboarding_page.dart';
+import 'package:fashion_app/src/onboarding/views/onboarding_screen.dart';
 import 'package:fashion_app/src/splashscreen/views/splashscreen_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

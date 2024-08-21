@@ -54,7 +54,7 @@ Future<dynamic> logoutBottomSheet(BuildContext context) {
                     borderColor: Kolors.kDark,
                     btnColor: Kolors.kWhite,
                     onTap: () => Navigator.pop(context),
-                    btnHieght: 35.h,
+                    btnHeight: 35.h,
                     radius: 16,
                     btnWidth: ScreenUtil().screenWidth / 2.2,
                   ),
@@ -66,7 +66,7 @@ Future<dynamic> logoutBottomSheet(BuildContext context) {
                       // context.go("/home");
                       // context.pop();
                     },
-                    btnHieght: 35.h,
+                    btnHeight: 35.h,
                     radius: 16,
                     btnWidth: ScreenUtil().screenWidth / 2.2,
                   ),
