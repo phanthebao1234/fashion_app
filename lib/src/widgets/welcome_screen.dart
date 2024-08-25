@@ -47,7 +47,7 @@ class WelcomeScreen extends StatelessWidget {
               SizedBox(
                 height: 30.h,
               ),
-              GradientBtn(
+              CustomButton(
                 text: AppText.kGetStarted,
                 onTap: () {
                   // TODO: uncomment the bool storage when the app is ready
