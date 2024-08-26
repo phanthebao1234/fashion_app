@@ -1,3 +1,4 @@
+import 'package:fashion_app/src/home/widgets/categoreis_list.dart';
 import 'package:fashion_app/src/home/widgets/custom_app_bar.dart';
 import 'package:fashion_app/src/home/widgets/home_header.dart';
 import 'package:fashion_app/src/home/widgets/home_slide.dart';
@@ -25,6 +26,10 @@ class HomePage extends StatelessWidget {
             height: 15.h,
           ),
           const HomeHeader(),
+          SizedBox(
+            height: 10.h,
+          ),
+          const HomeCategoriesList(),
         ],
       ),
     );
