@@ -1,12 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fashion_app/common/services/storage.dart';
+// import 'package:fashion_app/common/services/storage.dart';
 import 'package:fashion_app/common/utils/kcolors.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
+import 'package:fashion_app/src/products/controllers/product_notifier.dart';
 import 'package:fashion_app/src/products/models/products_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class StaggeredTileWidget extends StatelessWidget {
   const StaggeredTileWidget(
@@ -18,9 +21,12 @@ class StaggeredTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? accessToken = Storage().getString('accessToken');
+    // String? accessToken = Storage().getString('accessToken');
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        context.read<ProductNotifier>().setProduct(product);
+        context.push('/product/${product.id}');
+      },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: Container(
@@ -43,12 +49,15 @@ class StaggeredTileWidget extends StatelessWidget {
                     Positioned(
                       top: 10.w,
                       right: 10.h,
-                      child: CircleAvatar(
-                        backgroundColor: Kolors.kSecondaryLight,
-                        child: Icon(
-                          AntDesign.heart,
-                          color: Kolors.kRed,
-                          size: 18,
+                      child: GestureDetector(
+                        onTap: onTap,
+                        child: CircleAvatar(
+                          backgroundColor: Kolors.kSecondaryLight,
+                          child: Icon(
+                            AntDesign.heart,
+                            color: Kolors.kRed,
+                            size: 18,
+                          ),
                         ),
                       ),
                     )
