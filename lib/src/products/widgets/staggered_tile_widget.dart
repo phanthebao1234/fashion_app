@@ -41,8 +41,8 @@ class StaggeredTileWidget extends StatelessWidget {
 
                     // TODO: handle farvorites
                     Positioned(
-                      right: 10.w,
-                      height: 10.h,
+                      top: 10.w,
+                      right: 10.h,
                       child: CircleAvatar(
                         backgroundColor: Kolors.kSecondaryLight,
                         child: Icon(

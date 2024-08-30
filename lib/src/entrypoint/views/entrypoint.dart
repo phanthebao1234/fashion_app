@@ -15,8 +15,8 @@ class AppEntryPoint extends StatelessWidget {
 
   List<Widget> pageList = [
     const HomePage(),
-    const Profile(),
     const WishListPage(),
+    const Profile(),
     const CartPage(),
   ];
 
@@ -65,6 +65,17 @@ class AppEntryPoint extends StatelessWidget {
                           label: "Home",
                         ),
                         BottomNavigationBarItem(
+                            icon: tabIndexNotifier.index == 2
+                                ? Icon(
+                                    Ionicons.heart,
+                                    color: const Color.fromRGBO(91, 62, 43, 1),
+                                    size: 24,
+                                  )
+                                : Icon(
+                                    Ionicons.heart_outline,
+                                  ),
+                            label: "Wishlist"),
+                        BottomNavigationBarItem(
                             icon: tabIndexNotifier.index == 1
                                 ? Icon(
                                     EvilIcons.user,
@@ -76,17 +87,6 @@ class AppEntryPoint extends StatelessWidget {
                                     size: 34,
                                   ),
                             label: "Profile"),
-                        BottomNavigationBarItem(
-                            icon: tabIndexNotifier.index == 2
-                                ? Icon(
-                                    Ionicons.heart,
-                                    color: const Color.fromRGBO(91, 62, 43, 1),
-                                    size: 24,
-                                  )
-                                : Icon(
-                                    Ionicons.heart_outline,
-                                  ),
-                            label: "Wishlist"),
                         BottomNavigationBarItem(
                             icon: Badge(
                               label: Text("9"),
