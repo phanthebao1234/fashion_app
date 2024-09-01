@@ -224,7 +224,9 @@ class ProductPage extends StatelessWidget {
                     context.read<ColorsSizesNotifier>().sizes == '') {
                   showErrorPopup(context, AppText.kCartErrorText,
                       'Error Adding to cart', true);
-                } else {}
+                } else {
+                  // TODO: CART LOGIC
+                }
                 print('Add to cart');
               }
             },
