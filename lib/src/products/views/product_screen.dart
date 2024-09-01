@@ -1,12 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fashion_app/common/services/storage.dart';
 import 'package:fashion_app/common/utils/kcolors.dart';
+import 'package:fashion_app/common/utils/kstrings.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
 import 'package:fashion_app/common/widgets/back_button.dart';
+import 'package:fashion_app/common/widgets/error_modal.dart';
+import 'package:fashion_app/common/widgets/login_bottom_sheet.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
 import 'package:fashion_app/const/constants.dart';
+import 'package:fashion_app/src/products/controllers/colors_sizes_notifier.dart';
 import 'package:fashion_app/src/products/controllers/product_notifier.dart';
 import 'package:fashion_app/src/products/widgets/expandable_text.dart';
 import 'package:fashion_app/src/products/widgets/color_selection_widget.dart';
+import 'package:fashion_app/src/products/widgets/product_bottom_bar.dart';
 import 'package:fashion_app/src/products/widgets/product_sizes_widget.dart';
 import 'package:fashion_app/src/products/widgets/similar_products.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +28,7 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? accessToken = Storage().getString('accessToken');
     // Consumer trong Flutter là một widget cho phép lấy giá trị từ provider mà không cần một BuildContext là một người kế thừa của provider đó.
     // Consumer thường được sử dụng trong quản lý trạng thái, giúp tái tạo lại giao diện khi có sự thay đổi trong mô hình,
     // thông qua việc gọi hàm notifyListeners() từ ChangeNotifierProvider.
@@ -206,6 +213,21 @@ class ProductPage extends StatelessWidget {
                 child: SimilarProducts(),
               )),
             ],
+          ),
+          bottomNavigationBar: ProductBottomBar(
+            price: productNotifier.product!.price.toStringAsFixed(2),
+            onPressed: () {
+              if (accessToken == null) {
+                loginBottomSheet(context);
+              } else {
+                if (context.read<ColorsSizesNotifier>().colors == '' ||
+                    context.read<ColorsSizesNotifier>().sizes == '') {
+                  showErrorPopup(context, AppText.kCartErrorText,
+                      'Error Adding to cart', true);
+                } else {}
+                print('Add to cart');
+              }
+            },
           ),
         );
       },

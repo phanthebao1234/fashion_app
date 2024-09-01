@@ -12,6 +12,8 @@ class AppText {
   static const String kVerify = 'Verification Code';
   static const String kVerifyText =
       'Please enter the code we just sent to email';
+  static const String kCartErrorText =
+      'Please select size and color to proceed';
   static const String kSearch = 'Search';
 
   static const String kProfilePic =
