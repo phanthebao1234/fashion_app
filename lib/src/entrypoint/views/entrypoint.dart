@@ -65,7 +65,7 @@ class AppEntryPoint extends StatelessWidget {
                           label: "Home",
                         ),
                         BottomNavigationBarItem(
-                            icon: tabIndexNotifier.index == 2
+                            icon: tabIndexNotifier.index == 1
                                 ? Icon(
                                     Ionicons.heart,
                                     color: const Color.fromRGBO(91, 62, 43, 1),
@@ -76,7 +76,7 @@ class AppEntryPoint extends StatelessWidget {
                                   ),
                             label: "Wishlist"),
                         BottomNavigationBarItem(
-                            icon: tabIndexNotifier.index == 1
+                            icon: tabIndexNotifier.index == 2
                                 ? Icon(
                                     EvilIcons.user,
                                     color: Kolors.kPrimary,
