@@ -7,7 +7,7 @@ class Environment {
       return '.env.production';
     }
 
-    return '.env.development_example';
+    return '.env.development';
   }
 
   static String get apiKey {
@@ -21,5 +21,4 @@ class Environment {
   static String get googleApiKey {
     return dotenv.env['MAPS_API_KEY'] ?? 'MAPS_API_KEY not found';
   }
-
 }
