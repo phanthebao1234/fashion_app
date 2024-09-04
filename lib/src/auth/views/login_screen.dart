@@ -1,8 +1,10 @@
 import 'package:fashion_app/common/utils/kcolors.dart';
+import 'package:fashion_app/common/utils/kstrings.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
 import 'package:fashion_app/common/widgets/back_button.dart';
 import 'package:fashion_app/common/widgets/custom_button.dart';
 import 'package:fashion_app/common/widgets/email_textfield.dart';
+import 'package:fashion_app/common/widgets/error_modal.dart';
 import 'package:fashion_app/common/widgets/password_field.dart';
 import 'package:fashion_app/src/auth/controllers/auth_notifier.dart';
 import 'package:fashion_app/src/auth/models/login_model.dart';
@@ -44,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
         elevation: 0,
         leading: AppBackButton(
           onTap: () {
-            context.go('home');
+            context.go('/home');
           },
         ),
       ),
@@ -115,12 +117,20 @@ class _LoginPageState extends State<LoginPage> {
                         radius: 20,
                         textSize: 18,
                         onTap: () {
-                          LoginModel model = LoginModel(
-                            username: _usernameController.text,
-                            password: _passwordController.text,
-                          );
-                          String data = loginModelToJson(model);
-                          context.read<AuthNotifier>().loginFunc(data, context);
+                          if (_usernameController.text != '' ||
+                              _passwordController.text != '') {
+                            LoginModel model = LoginModel(
+                              username: _usernameController.text,
+                              password: _passwordController.text,
+                            );
+                            String data = loginModelToJson(model);
+                            context
+                                .read<AuthNotifier>()
+                                .loginFunc(data, context);
+                          } else {
+                            return showErrorPopup(
+                                context, AppText.kErrorLogin, null, null);
+                          }
                         },
                       ),
                 SizedBox(
