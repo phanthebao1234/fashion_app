@@ -48,7 +48,7 @@ class AuthNotifier with ChangeNotifier {
 
   // ham xu ly dang ki
   void registrationFunc(String data, BuildContext context) async {
-    var url = Uri.parse('${Environment.appBaseUrl}/auth/users');
+    var url = Uri.parse('${Environment.appBaseUrl}/auth/users/');
     setLoading();
     try {
       var response = await http.post(url,
@@ -58,6 +58,7 @@ class AuthNotifier with ChangeNotifier {
           body: data);
       if (response.statusCode == 201) {
         setLoading();
+        context.go('/login');
       } else if (response.statusCode == 400) {
         setLoading();
         var data = jsonDecode(response.body);
@@ -116,5 +117,6 @@ class AuthNotifier with ChangeNotifier {
         return profileModelFromJson(data);
       }
     }
+    return null;
   }
 }

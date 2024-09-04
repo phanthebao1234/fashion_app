@@ -134,7 +134,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             password: _passwordController.text,
                           );
                           String data = registrationModelToJson(model);
-
                           context
                               .read<AuthNotifier>()
                               .registrationFunc(data, context);
