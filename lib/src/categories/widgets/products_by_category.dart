@@ -4,7 +4,6 @@ import 'package:fashion_app/common/widgets/empty_screen_widget.dart';
 import 'package:fashion_app/common/widgets/login_bottom_sheet.dart';
 
 import 'package:fashion_app/common/widgets/shimmers/list_shimmer.dart';
-import 'package:fashion_app/const/resource.dart';
 import 'package:fashion_app/src/categories/controllers/category_notifier.dart';
 
 import 'package:fashion_app/src/categories/hooks/fetch_product_by_category.dart';
