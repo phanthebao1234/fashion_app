@@ -21,6 +21,7 @@ class EmptyScreenWidget extends StatelessWidget {
             R.ASSETS_IMAGES_EMPTY_PNG,
             height: ScreenUtil().screenHeight * 0.7,
             width: ScreenUtil().screenWidth,
+            opacity: const AlwaysStoppedAnimation(.5),
           ),
         )
       ],
