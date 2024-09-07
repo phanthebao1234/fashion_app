@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class EmailTextField extends StatelessWidget {
   const EmailTextField({
-    Key? key,
+    super.key,
     this.prefixIcon,
     this.keyboardType,
     this.onEditingComplete,
@@ -13,7 +13,7 @@ class EmailTextField extends StatelessWidget {
     this.focusNode,
     this.initialValue,
     this.radius,
-  }) : super(key: key);
+  });
   final String? hintText;
   final double? radius;
   final Widget? prefixIcon;

@@ -55,7 +55,7 @@ class CustomAppBar extends StatelessWidget {
           ),
         ],
       ),
-      actions: [
+      actions: const [
         // Padding(
         //   padding: const EdgeInsets.only(right: 6.0),
         //   child: Icon(

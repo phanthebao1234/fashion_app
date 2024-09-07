@@ -17,7 +17,7 @@ class AppText {
   static const String kSearch = 'Search';
 
   static const String kProfilePic =
-      'https://scontent.fsgn3-1.fna.fbcdn.net/v/t39.30808-1/406628481_1838930146526184_7564472462212019809_n.jpg?stp=dst-jpg_s200x200&_nc_cat=107&ccb=1-7&_nc_sid=50d2ac&_nc_ohc=xEitoVAAJrYQ7kNvgEB0buZ&_nc_ht=scontent.fsgn3-1.fna&oh=00_AYBfgBQZpf2YKJ84GYI-qs8H-WBiApSXXkfoKE2K1W-oXw&oe=66D9F325';
+      'https://scontent.fsgn3-1.fna.fbcdn.net/v/t39.30808-1/406628481_1838930146526184_7564472462212019809_n.jpg?stp=dst-jpg_s200x200&_nc_cat=107&ccb=1-7&_nc_sid=50d2ac&_nc_ohc=KriD_6ydovgQ7kNvgEq6VgJ&_nc_ht=scontent.fsgn3-1.fna&oh=00_AYAehIHYoa5xxceZFYtAn03llDQbGQDWgLGbbSNAZNfhAw&oe=66E01A25';
 
   static const String kCollection = 'New Collection';
   static const String kPolicy = 'Privacy Policy';
