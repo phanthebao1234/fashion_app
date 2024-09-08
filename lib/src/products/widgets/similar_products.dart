@@ -1,8 +1,6 @@
 import 'package:fashion_app/common/services/storage.dart';
 import 'package:fashion_app/common/widgets/empty_screen_widget.dart';
 import 'package:fashion_app/common/widgets/login_bottom_sheet.dart';
-import 'package:fashion_app/common/widgets/shimmers/list_shimmer.dart';
-import 'package:fashion_app/const/constants.dart';
 import 'package:fashion_app/src/products/controllers/product_notifier.dart';
 import 'package:fashion_app/src/products/hooks/fetch_similar.dart';
 import 'package:fashion_app/src/products/widgets/staggered_tile_widget.dart';
