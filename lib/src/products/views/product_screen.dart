@@ -15,6 +15,7 @@ import 'package:fashion_app/src/products/widgets/color_selection_widget.dart';
 import 'package:fashion_app/src/products/widgets/product_bottom_bar.dart';
 import 'package:fashion_app/src/products/widgets/product_sizes_widget.dart';
 import 'package:fashion_app/src/products/widgets/similar_products.dart';
+import 'package:fashion_app/src/wishlist/controllers/wishlist_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,19 +48,27 @@ class ProductPage extends StatelessWidget {
                 leading: AppBackButton(),
                 actions: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: CircleAvatar(
-                        backgroundColor: Kolors.kSecondaryLight,
-                        child: Icon(
-                          AntDesign.heart,
-                          color: Kolors.kRed,
-                          size: 18,
-                        ),
-                      ),
-                    ),
-                  ),
+                      padding: const EdgeInsets.only(right: 16.0),
+                      child: Consumer<WishlistNotifier>(
+                          builder: (context, wishlistNotifier, child) {
+                        return GestureDetector(
+                          onTap: () {
+                            wishlistNotifier.aaddRemoveWishList(
+                                productNotifier.product!.id, () {});
+                          },
+                          child: CircleAvatar(
+                            backgroundColor: Kolors.kSecondaryLight,
+                            child: Icon(
+                              AntDesign.heart,
+                              color: wishlistNotifier.wishlist
+                                      .contains(productNotifier.product!.id)
+                                  ? Kolors.kRed
+                                  : Kolors.kGray,
+                              size: 18,
+                            ),
+                          ),
+                        );
+                      })),
                 ],
                 //  bạn có thể chỉ định một widget flexibleSpace cung cấp không gian linh hoạt ở phía sau thanh công cụ và các widget khác.
                 // Điều này cho phép tiêu đề và các yếu tố khác thay đổi kích thước khi cuộn.

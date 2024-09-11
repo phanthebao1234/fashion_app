@@ -9,6 +9,7 @@ import 'package:fashion_app/src/categories/controllers/category_notifier.dart';
 import 'package:fashion_app/src/categories/hooks/fetch_product_by_category.dart';
 
 import 'package:fashion_app/src/products/widgets/staggered_tile_widget.dart';
+import 'package:fashion_app/src/wishlist/controllers/wishlist_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,6 +29,7 @@ class ProductsByCategory extends HookWidget {
     final products = resutls.products;
     final isLoading = resutls.isLoading;
     final error = resutls.error;
+    final refetch = resutls.refetch;
 
     if (isLoading) {
       return const Scaffold(
@@ -57,8 +59,10 @@ class ProductsByCategory extends HookWidget {
                           if (accessToken == null) {
                             loginBottomSheet(context);
                           } else {
-                            // handle wishlist function
-                            print(product);
+                            context.read<WishlistNotifier>().aaddRemoveWishList(
+                                  product.id,
+                                  refetch,
+                                );
                           }
                         },
                         product: product,

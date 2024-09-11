@@ -27,7 +27,6 @@ FetchProducts fetchWishList() {
         },
       );
       print(response.statusCode);
-      print(response.body);
       if (response.statusCode == 200) {
         products.value = productsFromJson(response.body);
       }
