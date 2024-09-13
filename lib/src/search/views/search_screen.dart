@@ -9,6 +9,7 @@ import 'package:fashion_app/common/widgets/login_bottom_sheet.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
 import 'package:fashion_app/src/products/widgets/staggered_tile_widget.dart';
 import 'package:fashion_app/src/search/controllers/search_notifier.dart';
+import 'package:fashion_app/src/wishlist/controllers/wishlist_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -52,7 +53,6 @@ class _SearchPageState extends State<SearchPage> {
               prefixIcon: GestureDetector(
                 onTap: () {
                   if (_searchController.text.isNotEmpty) {
-
                     context
                         .read<SearchNotifier>()
                         .searchFunction(_searchController.text);
@@ -121,8 +121,9 @@ class _SearchPageState extends State<SearchPage> {
                                   if (accessToken == null) {
                                     loginBottomSheet(context);
                                   } else {
-                                    // handle wishlist function
-                                    print(product);
+                                    context
+                                        .read<WishlistNotifier>()
+                                        .addRemoveWishList(product.id, () {});
                                   }
                                 },
                                 product: product,

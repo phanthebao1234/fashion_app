@@ -7,7 +7,12 @@ import 'package:http/http.dart' as http;
 
 class WishlistNotifier with ChangeNotifier {
   String? error;
-  void aaddRemoveWishList(int id, Function refetch) async {
+  void setError(String e) {
+    error = e;
+    notifyListeners();
+  }
+
+  void addRemoveWishList(int id, Function refetch) async {
     final String? accessToken = Storage().getString('accessToken');
 
     try {
@@ -25,13 +30,13 @@ class WishlistNotifier with ChangeNotifier {
       if (response.statusCode == 201) {
         // SET THE ID TO A LIST IN OUR LOCAL STORAGE
         setToList(id);
-        // REFETCH DATA
         refetch();
+        // REFETCH DATA
       } else if (response.statusCode == 204) {
         // REMOVE FROM LOCAL STORAGE
         setToList(id);
-        // REFETCH DATA
         refetch();
+        // REFETCH DATA
       }
     } catch (e) {
       error = e.toString();
@@ -50,29 +55,28 @@ class WishlistNotifier with ChangeNotifier {
 
   void setToList(int v) {
     String? accessToken = Storage().getString('accessToken');
+
     String? wishlist = Storage().getString('${accessToken}wishlist');
-    if (wishlist == null) {
-      List wishlist = [];
-      wishlist.add(v);
-      setWishList(wishlist);
 
-      Storage().setString('${accessToken}wishlist', jsonEncode(wishlist));
-    } else {
-      List w = jsonDecode(wishlist);
-      print(wishlist);
+    try {
+      if (wishlist == null) {
+        List wishlist = [];
+        wishlist.add(v);
+        setWishList(wishlist);
+        Storage().setString('${accessToken}wishlist', jsonEncode(wishlist));
+      } else {
+        List w = jsonDecode(wishlist);
 
-      if (w.contains(v)) {
-        w.removeWhere((e) => e == v);
-
+        if (w.contains(v)) {
+          w.removeWhere((e) => e == v);
+        } else if (!w.contains(v)) {
+          w.add(v);
+        }
         setWishList(w);
-
-        Storage().setString('${accessToken}wishlist', jsonEncode(w));
-      } else if (!w.contains(v)) {
-        w.add(v);
-        setWishList(w);
-
         Storage().setString('${accessToken}wishlist', jsonEncode(w));
       }
+    } catch (e) {
+      print(e.toString());
     }
   }
 }

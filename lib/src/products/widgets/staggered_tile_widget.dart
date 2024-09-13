@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-// import 'package:fashion_app/common/services/storage.dart';
 import 'package:fashion_app/common/utils/kcolors.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
@@ -22,7 +21,6 @@ class StaggeredTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // String? accessToken = Storage().getString('accessToken');
     return GestureDetector(
       onTap: () {
         context.read<ProductNotifier>().setProduct(product);

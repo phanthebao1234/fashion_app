@@ -51,8 +51,9 @@ class WishtListWidget extends HookWidget {
                           if (accessToken == null) {
                             loginBottomSheet(context);
                           } else {
+                            print('run hererrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
                             // handle wishlist function
-                            context.read<WishlistNotifier>().aaddRemoveWishList(
+                            context.read<WishlistNotifier>().addRemoveWishList(
                                   product.id,
                                   refetch,
                                 );

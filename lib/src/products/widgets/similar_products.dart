@@ -22,6 +22,7 @@ class SimilarProducts extends HookWidget {
     final products = resutls.products;
     final isLoading = resutls.isLoading;
     final error = resutls.error;
+    final refetch = resutls.refetch;
 
     if (isLoading) {
       return const Center(
@@ -51,9 +52,9 @@ class SimilarProducts extends HookWidget {
                           if (accessToken == null) {
                             loginBottomSheet(context);
                           } else {
-                            context.read<WishlistNotifier>().aaddRemoveWishList(
+                            context.read<WishlistNotifier>().addRemoveWishList(
                                   product.id,
-                                  () {},
+                                  refetch,
                                 );
                           }
                         },

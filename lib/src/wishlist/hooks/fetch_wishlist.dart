@@ -17,7 +17,7 @@ FetchProducts fetchWishList() {
 
     try {
       Uri url = Uri.parse('${Environment.appBaseUrl}/api/wishlist/me');
-      print(url);
+      // print(url);
       String? accessToken = Storage().getString('accessToken');
       final response = await http.get(
         url,
@@ -26,7 +26,7 @@ FetchProducts fetchWishList() {
           'Authorization': 'Token $accessToken'
         },
       );
-      print(response.statusCode);
+      // print(response.statusCode);
       if (response.statusCode == 200) {
         products.value = productsFromJson(response.body);
       }
@@ -46,6 +46,7 @@ FetchProducts fetchWishList() {
   void refetch() {
     isLoading.value = true;
     fetchData();
+    print('refetch data');
   }
 
   return FetchProducts(

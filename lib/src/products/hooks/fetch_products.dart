@@ -13,7 +13,6 @@ FetchProducts fetchProducts(QueryType queryType) {
   final error = useState<String?>(null);
 
   Future<void> fetchData() async {
-    print('run in file fetch products');
     isLoading.value = true;
     Uri url;
     try {
@@ -41,7 +40,6 @@ FetchProducts fetchProducts(QueryType queryType) {
               '${Environment.appBaseUrl}/api/product/byType/?clothesType=${queryType.name}');
           break;
       }
-      print(url);
       final response = await http.get(url);
       if (response.statusCode == 200) {
         products.value = productsFromJson(response.body);

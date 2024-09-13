@@ -22,6 +22,7 @@ class ExploreProducts extends HookWidget {
     final products = results.products;
     final isLoading = results.isLoading;
     final error = results.error;
+    final refetch = results.refetch;
 
     if (isLoading) {
       return Padding(
@@ -59,9 +60,9 @@ class ExploreProducts extends HookWidget {
                           if (accessToken == null) {
                             loginBottomSheet(context);
                           } else {
-                            context.read<WishlistNotifier>().aaddRemoveWishList(
+                            context.read<WishlistNotifier>().addRemoveWishList(
                                   product.id,
-                                  () {},
+                                  refetch,
                                 );
                           }
                         },

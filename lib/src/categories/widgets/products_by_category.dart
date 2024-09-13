@@ -59,7 +59,7 @@ class ProductsByCategory extends HookWidget {
                           if (accessToken == null) {
                             loginBottomSheet(context);
                           } else {
-                            context.read<WishlistNotifier>().aaddRemoveWishList(
+                            context.read<WishlistNotifier>().addRemoveWishList(
                                   product.id,
                                   refetch,
                                 );
