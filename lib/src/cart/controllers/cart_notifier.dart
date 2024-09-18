@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class CartNotifier with ChangeNotifier {
   int _qty = 0;
-
   int get qty => _qty;
 
   void increment() {
@@ -24,5 +23,11 @@ class CartNotifier with ChangeNotifier {
   void setSelectedCounter(int id, int q) {
     _selectedCart = id;
     _qty = q;
+    notifyListeners();
+  }
+
+  void clearSelectedCart() {
+    _selectedCart = null;
+    notifyListeners();
   }
 }

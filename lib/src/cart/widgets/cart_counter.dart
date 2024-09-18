@@ -15,8 +15,9 @@ class CartCounter extends StatelessWidget {
     return Consumer<CartNotifier>(builder: (context, cartNotifier, child) {
       return SizedBox(
         height: 24.h,
-        width: 65.w,
+        width: 60.w,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
               onTap: () {
@@ -28,9 +29,12 @@ class CartCounter extends StatelessWidget {
                 size: 20,
               ),
             ),
-            ReusableText(
-              text: cartNotifier.qty.toString(),
-              style: appStyle(12, Kolors.kDark, FontWeight.normal),
+            Padding(
+              padding: const EdgeInsets.only(top: 3.0),
+              child: ReusableText(
+                text: cartNotifier.qty.toString(),
+                style: appStyle(13, Kolors.kDark, FontWeight.w500),
+              ),
             ),
             GestureDetector(
               onTap: () {

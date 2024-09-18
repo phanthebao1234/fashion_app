@@ -6,6 +6,7 @@ import 'package:fashion_app/const/constants.dart';
 import 'package:fashion_app/src/cart/controllers/cart_notifier.dart';
 import 'package:fashion_app/src/cart/models/cart_model.dart';
 import 'package:fashion_app/src/cart/widgets/cart_counter.dart';
+import 'package:fashion_app/src/cart/widgets/update_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -121,7 +122,7 @@ class CartTile extends StatelessWidget {
                         children: [
                           cartNotifier.selectedCart != null &&
                                   cartNotifier.selectedCart == cart.id
-                              ? CartCounter()
+                              ? const CartCounter()
                               : GestureDetector(
                                   onTap: () {
                                     // push the current count
@@ -148,14 +149,17 @@ class CartTile extends StatelessWidget {
                           SizedBox(
                             height: 6.h,
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 6),
-                            child: ReusableText(
-                                text:
-                                    '\$ ${(cart.quantity * cart.product.price).toStringAsFixed(2)}',
-                                style: appStyle(
-                                    12, Kolors.kDark, FontWeight.w600)),
-                          ),
+                          cartNotifier.selectedCart != null &&
+                                  cartNotifier.selectedCart == cart.id
+                              ? const UpdateButton()
+                              : Padding(
+                                  padding: EdgeInsets.only(right: 6),
+                                  child: ReusableText(
+                                      text:
+                                          '\$ ${(cart.quantity * cart.product.price).toStringAsFixed(2)}',
+                                      style: appStyle(
+                                          12, Kolors.kDark, FontWeight.w600)),
+                                ),
                         ],
                       ),
                     )
