@@ -25,6 +25,9 @@ class CartTile extends StatelessWidget {
       builder: (context, cartNotifier, child) {
         return GestureDetector(
           onTap: () {
+            context
+                .read<CartNotifier>()
+                .setSelectedCounter(cart.id, cart.quantity);
             // push id and cart item in controller
           },
           child: Padding(
@@ -151,7 +154,9 @@ class CartTile extends StatelessWidget {
                           ),
                           cartNotifier.selectedCart != null &&
                                   cartNotifier.selectedCart == cart.id
-                              ? const UpdateButton()
+                              ? UpdateButton(
+                                  onUpdate: onUpdate
+                                )
                               : Padding(
                                   padding: EdgeInsets.only(right: 6),
                                   child: ReusableText(

@@ -5,11 +5,13 @@ import 'package:fashion_app/common/widgets/app_style.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
 import 'package:fashion_app/common/widgets/shimmers/list_shimmer.dart';
 import 'package:fashion_app/src/auth/views/login_screen.dart';
+import 'package:fashion_app/src/cart/controllers/cart_notifier.dart';
 import 'package:fashion_app/src/cart/hooks/fetch_cart.dart';
 import 'package:fashion_app/src/cart/widgets/cart_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class CartPage extends HookWidget {
   const CartPage({super.key});
@@ -48,7 +50,12 @@ class CartPage extends HookWidget {
             carts.length,
             (i) {
               final cartItem = carts[i];
-              return CartTile(cart: cartItem);
+              return CartTile(
+                cart: cartItem,
+                onUpdate: () {
+                  context.read<CartNotifier>().updateCart(cartItem.id, refetch);
+                },
+              );
             },
           )),
     );

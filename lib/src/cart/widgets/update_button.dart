@@ -7,17 +7,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class UpdateButton extends StatelessWidget {
-  const UpdateButton({super.key, this.onUpdate});
+  const UpdateButton({super.key, this.onUpdate, this.onCancel});
 
   final void Function()? onUpdate;
+  final void Function()? onCancel;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onUpdate,
       onLongPress: () {
-        context.read<CartNotifier>().clearSelectedCart();
-        print('long press');
+        context.read<CartNotifier>().clearSelected();
       },
       child: Container(
           width: 65.w,
