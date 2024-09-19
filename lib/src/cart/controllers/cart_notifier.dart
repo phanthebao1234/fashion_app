@@ -47,10 +47,26 @@ class CartNotifier with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> deleteCart() async {}
+  Future<void> deleteCart(int id, void Function() refetch) async {
+     String? accessToken = Storage().getString('accessToken');
+
+    try {
+      Uri url = Uri.parse(
+          '${Environment.appBaseUrl}/api/cart/delete/?id=$id');
+      final response = await http.delete(url, headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token $accessToken'
+      });
+      if (response.statusCode == 204) {
+        refetch();
+        clearSelected();
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 
   Future<void> updateCart(int id, void Function() refetch) async {
-    print('run here');
     String? accessToken = Storage().getString('accessToken');
 
     try {

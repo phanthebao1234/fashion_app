@@ -2,6 +2,7 @@ import 'package:fashion_app/common/services/storage.dart';
 import 'package:fashion_app/common/utils/kcolors.dart';
 import 'package:fashion_app/common/utils/kstrings.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
+import 'package:fashion_app/common/widgets/empty_screen_widget.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
 import 'package:fashion_app/common/widgets/shimmers/list_shimmer.dart';
 import 'package:fashion_app/src/auth/views/login_screen.dart';
@@ -44,20 +45,31 @@ class CartPage extends HookWidget {
         ),
         centerTitle: true,
       ),
-      body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 12.w),
-          children: List.generate(
-            carts.length,
-            (i) {
-              final cartItem = carts[i];
-              return CartTile(
-                cart: cartItem,
-                onUpdate: () {
-                  context.read<CartNotifier>().updateCart(cartItem.id, refetch);
+      body: carts.isEmpty
+          ? Scaffold(
+              body: const EmptyScreenWidget(),
+            )
+          : ListView(
+              padding: EdgeInsets.symmetric(horizontal: 12.w),
+              children: List.generate(
+                carts.length,
+                (i) {
+                  final cartItem = carts[i];
+                  return CartTile(
+                    cart: cartItem,
+                    onUpdate: () {
+                      context
+                          .read<CartNotifier>()
+                          .updateCart(cartItem.id, refetch);
+                    },
+                    onDelete: () {
+                      context
+                          .read<CartNotifier>()
+                          .deleteCart(cartItem.id, refetch);
+                    },
+                  );
                 },
-              );
-            },
-          )),
+              )),
     );
   }
 }
