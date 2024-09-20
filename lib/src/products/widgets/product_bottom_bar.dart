@@ -1,4 +1,5 @@
 import 'package:fashion_app/common/utils/kcolors.dart';
+import 'package:fashion_app/common/utils/kstrings.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,8 @@ class ProductBottomBar extends StatelessWidget {
                     width: 8.w,
                   ),
                   ReusableText(
-                      text: 'Checkout',
+                      
+                      text: AppText.kAddToCart,
                       style: appStyle(14, Kolors.kWhite, FontWeight.normal))
                 ],
               ),
