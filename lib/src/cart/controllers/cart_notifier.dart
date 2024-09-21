@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_final_fields, collection_methods_unrelated_type
+
 import 'package:fashion_app/common/services/storage.dart';
 import 'package:fashion_app/common/utils/environment.dart';
+import 'package:fashion_app/src/cart/models/cart_model.dart';
 import 'package:fashion_app/src/entrypoint/controllers/bottom_tab_notifier.dart';
 import 'package:fashion_app/src/products/controllers/colors_sizes_notifier.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +57,8 @@ class CartNotifier with ChangeNotifier {
   void clearSelected() {
     _selectedCart = null;
     _qty = 0;
+    _selectedCartItems.clear;
+    _selectedCartItemsId.clear;
     notifyListeners();
   }
 
@@ -123,5 +128,38 @@ class CartNotifier with ChangeNotifier {
     } catch (e) {
       debugPrint(e.toString());
     }
+  }
+
+  List<int> _selectedCartItemsId = [];
+
+  List<int> get selectedCartItemsId => _selectedCartItemsId;
+
+  List<CartModel> _selectedCartItems = [];
+
+  List<CartModel> get selectedCartItems => _selectedCartItems;
+
+  double totalPrice = 0.0;
+
+  void selectOrDeselect(int id, CartModel cartItem) {
+    print('run here');
+
+    if (_selectedCartItemsId.contains(id)) {
+      _selectedCartItemsId.remove(id);
+      _selectedCartItems.removeWhere((i) => i.id == id);
+      totalPrice = calculateTotalPrice(_selectedCartItems);
+    } else {
+      _selectedCartItemsId.add(id);
+      _selectedCartItems.add(cartItem);
+      totalPrice = calculateTotalPrice(_selectedCartItems);
+    }
+    notifyListeners();
+  }
+
+  double calculateTotalPrice(List<CartModel> items) {
+    double total = 0.0;
+    for (var item in items) {
+      total += item.quantity * item.product.price;
+    }
+    return total;
   }
 }

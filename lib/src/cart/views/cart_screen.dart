@@ -5,6 +5,7 @@ import 'package:fashion_app/common/widgets/app_style.dart';
 import 'package:fashion_app/common/widgets/empty_screen_widget.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
 import 'package:fashion_app/common/widgets/shimmers/list_shimmer.dart';
+import 'package:fashion_app/const/constants.dart';
 import 'package:fashion_app/src/auth/views/login_screen.dart';
 import 'package:fashion_app/src/cart/controllers/cart_notifier.dart';
 import 'package:fashion_app/src/cart/hooks/fetch_cart.dart';
@@ -69,7 +70,49 @@ class CartPage extends HookWidget {
                     },
                   );
                 },
-              )),
+              ),
+            ),
+      bottomNavigationBar: Consumer<CartNotifier>(
+        builder: (context, cartNotifier, child) {
+          return GestureDetector(
+            onTap: () {
+              print('check out');
+            },
+            child: cartNotifier.selectedCartItems.isNotEmpty
+                ? Container(
+                    padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 60.h),
+                    height: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: kRadiusTop,
+                      color: Kolors.kPrimaryLight,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ReusableText(
+                          text: 'Click To Checkout',
+                          style: appStyle(
+                            15,
+                            Kolors.kWhite,
+                            FontWeight.w600,
+                          ),
+                        ),
+                        ReusableText(
+                          text:
+                              '\$ ${cartNotifier.totalPrice.toStringAsFixed(2)}',
+                          style: appStyle(
+                            15,
+                            Kolors.kWhite,
+                            FontWeight.w600,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                : const SizedBox.shrink(),
+          );
+        },
+      ),
     );
   }
 }

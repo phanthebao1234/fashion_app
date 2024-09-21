@@ -25,10 +25,8 @@ class CartTile extends StatelessWidget {
       builder: (context, cartNotifier, child) {
         return GestureDetector(
           onTap: () {
-            context
-                .read<CartNotifier>()
-                .setSelectedCounter(cart.id, cart.quantity);
             // push id and cart item in controller
+            cartNotifier.selectOrDeselect(cart.id, cart);
           },
           child: Padding(
             padding: EdgeInsets.only(bottom: 8.h),
@@ -36,7 +34,9 @@ class CartTile extends StatelessWidget {
               width: ScreenUtil().screenWidth,
               height: 90.h,
               decoration: BoxDecoration(
-                color: Kolors.kWhite,
+                color: !cartNotifier.selectedCartItemsId.contains(cart.id)
+                    ? Kolors.kWhite
+                    : Kolors.kPrimaryLight.withOpacity(.2),
                 borderRadius: kRadiusAll,
               ),
               child: SizedBox(
@@ -128,8 +128,10 @@ class CartTile extends StatelessWidget {
                               ? const CartCounter()
                               : GestureDetector(
                                   onTap: () {
-                                    // push the current count
-                                    // push cart id
+                                    context
+                                        .read<CartNotifier>()
+                                        .setSelectedCounter(
+                                            cart.id, cart.quantity);
                                   },
                                   child: Container(
                                     width: 40.w,
