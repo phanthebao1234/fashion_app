@@ -8,6 +8,7 @@ import 'package:fashion_app/common/widgets/error_modal.dart';
 import 'package:fashion_app/common/widgets/login_bottom_sheet.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
 import 'package:fashion_app/const/constants.dart';
+import 'package:fashion_app/src/cart/controllers/cart_notifier.dart';
 import 'package:fashion_app/src/cart/models/create_cart_model.dart';
 import 'package:fashion_app/src/products/controllers/colors_sizes_notifier.dart';
 import 'package:fashion_app/src/products/controllers/product_notifier.dart';
@@ -247,9 +248,8 @@ class ProductPage extends StatelessWidget {
                   );
 
                   String cartData = createCartModelToJson(data);
-                  print(cartData);
+                  context.read<CartNotifier>().addToCart(cartData, context);
                 }
-                print('Add to cart');
               }
             },
           ),

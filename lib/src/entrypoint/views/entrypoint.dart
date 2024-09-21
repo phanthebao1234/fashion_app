@@ -1,16 +1,18 @@
 import 'package:fashion_app/common/utils/kcolors.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
+import 'package:fashion_app/src/cart/hooks/fetch_cart_count.dart';
 import 'package:fashion_app/src/cart/views/cart_screen.dart';
 import 'package:fashion_app/src/entrypoint/controllers/bottom_tab_notifier.dart';
 import 'package:fashion_app/src/home/views/home_screen.dart';
 import 'package:fashion_app/src/profile/views/profile_screen.dart';
 import 'package:fashion_app/src/wishlist/views/wishlist_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
-class AppEntryPoint extends StatelessWidget {
+class AppEntryPoint extends HookWidget {
   AppEntryPoint({super.key});
 
   List<Widget> pageList = [
@@ -22,6 +24,9 @@ class AppEntryPoint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final result = fetchCartCount(context);
+    final data = result.count;
+
     return Consumer<TabIndexNotifier>(
       builder: (context, tabIndexNotifier, child) {
         return Scaffold(
@@ -89,7 +94,7 @@ class AppEntryPoint extends StatelessWidget {
                             label: "Profile"),
                         BottomNavigationBarItem(
                             icon: Badge(
-                              label: Text("9"),
+                              label: Text(data.cartCount.toString()),
                               child: tabIndexNotifier.index == 3
                                   ? Icon(
                                       MaterialCommunityIcons.shopping,
