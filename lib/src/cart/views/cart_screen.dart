@@ -13,6 +13,7 @@ import 'package:fashion_app/src/cart/widgets/cart_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends HookWidget {
@@ -77,6 +78,7 @@ class CartPage extends HookWidget {
           return GestureDetector(
             onTap: () {
               print('check out');
+              context.push('/checkout');
             },
             child: cartNotifier.selectedCartItems.isNotEmpty
                 ? Container(
