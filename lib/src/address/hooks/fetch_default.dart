@@ -14,12 +14,13 @@ FetchDefaultAddress fetchDefaultAddress() {
 
   final error = useState<String?>(null);
 
+  String? accessToken = Storage().getString('accessToken');
+
   Future<void> fetchData() async {
     isLoading.value = true;
 
     try {
       Uri url = Uri.parse('${Environment.appBaseUrl}/api/address/default/');
-      String? accessToken = Storage().getString('accessToken');
       final response = await http.get(
         url,
         headers: {
@@ -40,7 +41,9 @@ FetchDefaultAddress fetchDefaultAddress() {
   }
 
   useEffect(() {
-    fetchData();
+    if (accessToken != null) {
+      fetchData();
+    }
     return;
   }, const []);
 

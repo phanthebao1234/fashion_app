@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fashion_app/common/services/storage.dart';
 import 'package:fashion_app/src/address/hooks/results/address_list_results.dart';
 import 'package:fashion_app/src/address/models/address_model.dart';
@@ -26,7 +28,7 @@ FetchAddress fetchAddress() {
         },
       );
       if (response.statusCode == 200) {
-        address.value = addressListModelFromJson(response.body);
+        address.value = addressListModelFromJson(utf8.decode(response.bodyBytes));
       }
     } catch (e) {
       error.value = e.toString();
