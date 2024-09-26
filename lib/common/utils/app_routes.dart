@@ -11,7 +11,7 @@ import 'package:fashion_app/src/onboarding/views/onboarding_screen.dart';
 import 'package:fashion_app/src/products/views/product_screen.dart';
 import 'package:fashion_app/src/profile/views/order_screen.dart';
 import 'package:fashion_app/src/profile/views/policy_screen.dart';
-import 'package:fashion_app/src/profile/views/shipping_address_screen.dart';
+import 'package:fashion_app/src/address/views/shipping_address_screen.dart';
 import 'package:fashion_app/src/search/views/search_screen.dart';
 import 'package:fashion_app/src/splashscreen/views/splashscreen_page.dart';
 import 'package:flutter/material.dart';
