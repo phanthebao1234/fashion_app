@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fashion_app/common/models/api_error_model.dart';
 import 'package:fashion_app/common/services/storage.dart';
 import 'package:fashion_app/src/address/hooks/results/default_results.dart';
 import 'package:fashion_app/src/address/models/address_model.dart';
@@ -20,7 +21,7 @@ FetchDefaultAddress fetchDefaultAddress() {
     isLoading.value = true;
 
     try {
-      Uri url = Uri.parse('${Environment.appBaseUrl}/api/address/default/');
+      Uri url = Uri.parse('${Environment.appBaseUrl}/api/address/me/');
       final response = await http.get(
         url,
         headers: {

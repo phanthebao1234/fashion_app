@@ -38,16 +38,18 @@ class AddressTile extends StatelessWidget {
             size: 30,
           ),
         ),
-        title: ReusableText(
-          text: addressNotifier.address == null
-              ? address.addressType.toUpperCase()
-              : addressNotifier.address!.addressType.toUpperCase(),
-          style: appStyle(
-            13,
-            Kolors.kDark,
-            FontWeight.w400,
-          ),
-        ),
+        title: address.isDefault
+            ? SizedBox.shrink()
+            : ReusableText(
+                text: addressNotifier.address == null
+                    ? address.addressType.toUpperCase()
+                    : addressNotifier.address!.addressType.toUpperCase(),
+                style: appStyle(
+                  13,
+                  Kolors.kDark,
+                  FontWeight.w400,
+                ),
+              ),
         subtitle: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +86,7 @@ class AddressTile extends StatelessWidget {
                   // change the address bottom
                   changeAddressBottomSheet(context);
                 } else {
-                  setDefault!();
+                  address.isDefault ? () {} : setDefault!();
                 }
               },
               child: Container(
@@ -104,20 +106,22 @@ class AddressTile extends StatelessWidget {
                 child: ReusableText(
                     text: isCheckout == true
                         ? "Change"
-                        : addressNotifier.address != null
-                            ? address.isDefault != true
-                                ? "Set default"
-                                : "Default"
-                            : addressNotifier.address!.isDefault != true
-                                ? "Set default"
-                                : "Default",
+                        : addressNotifier.address == null
+                            ? address.isDefault == true
+                                ? "Default"
+                                : "Set Default"
+                            : addressNotifier.address!.isDefault == true
+                                ? "Default"
+                                : "Set Default",
                     style: appStyle(12, Kolors.kWhite, FontWeight.w400)),
               ),
             ),
-            isCheckout == true
+            isCheckout == true || address.isDefault
                 ? SizedBox.shrink()
                 : GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      onDelete!();
+                    },
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 5.w),
                       child: Container(

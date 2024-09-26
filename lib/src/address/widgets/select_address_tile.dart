@@ -1,12 +1,9 @@
 import 'package:fashion_app/common/utils/kcolors.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
-import 'package:fashion_app/common/widgets/change_address_modal.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
-import 'package:fashion_app/const/constants.dart';
 import 'package:fashion_app/src/address/controllers/address_notifier.dart';
 import 'package:fashion_app/src/address/models/address_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
