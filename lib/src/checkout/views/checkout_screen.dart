@@ -3,6 +3,8 @@ import 'package:fashion_app/common/utils/kstrings.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
 import 'package:fashion_app/common/widgets/back_button.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
+import 'package:fashion_app/const/constants.dart';
+import 'package:fashion_app/src/address/controllers/address_notifier.dart';
 import 'package:fashion_app/src/address/hooks/fetch_default.dart';
 import 'package:fashion_app/src/address/widgets/address_block.dart';
 import 'package:fashion_app/src/cart/controllers/cart_notifier.dart';
@@ -27,6 +29,7 @@ class CheckoutPage extends HookWidget {
         leading: AppBackButton(
           onTap: () {
             // clear the address
+            context.read<AddressNotifier>().clearAddress(); 
             context.pop();
           },
         ),
@@ -69,6 +72,25 @@ class CheckoutPage extends HookWidget {
           );
         },
       ),
+      bottomNavigationBar:
+          Consumer<CartNotifier>(builder: (context, cartNotifier, child) {
+        return GestureDetector(
+          onTap: () {},
+          child: Container(
+            height: 60,
+            width: ScreenUtil().screenWidth,
+            decoration: BoxDecoration(
+                color: Kolors.kPrimaryLight, borderRadius: kRadiusTop),
+            child: Center(
+              child: ReusableText(
+                  text: address == null
+                      ? "Please an address"
+                      : "Click to Payment",
+                  style: appStyle(16, Kolors.kWhite, FontWeight.w600)),
+            ),
+          ),
+        );
+      }),
     );
   }
 }
