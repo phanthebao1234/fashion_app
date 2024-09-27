@@ -29,7 +29,7 @@ class CheckoutPage extends HookWidget {
         leading: AppBackButton(
           onTap: () {
             // clear the address
-            context.read<AddressNotifier>().clearAddress(); 
+            context.read<AddressNotifier>().clearAddress();
             context.pop();
           },
         ),
