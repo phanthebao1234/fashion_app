@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_final_fields, collection_methods_unrelated_type
 
+import 'dart:convert';
+
 import 'package:fashion_app/common/services/storage.dart';
 import 'package:fashion_app/common/utils/environment.dart';
 import 'package:fashion_app/src/cart/models/cart_model.dart';
@@ -114,7 +116,6 @@ class CartNotifier with ChangeNotifier {
         },
       );
       if (response.statusCode == 201) {
-        print("add to cart successeccfully");
         // refetch count
         refetchCount!();
 
@@ -141,8 +142,6 @@ class CartNotifier with ChangeNotifier {
   double totalPrice = 0.0;
 
   void selectOrDeselect(int id, CartModel cartItem) {
-    print('run here');
-
     if (_selectedCartItemsId.contains(id)) {
       _selectedCartItemsId.remove(id);
       _selectedCartItems.removeWhere((i) => i.id == id);
@@ -161,5 +160,40 @@ class CartNotifier with ChangeNotifier {
       total += item.quantity * item.product.price;
     }
     return total;
+  }
+
+  String _paymentUrl = '';
+  String get paymentUrl => _paymentUrl;
+  void setPaymentUrl(String url) {
+    _paymentUrl = url;
+    notifyListeners();
+  }
+
+  String _success = '';
+  String get success => _success;
+  void setSuccessUrl(String url) {
+    _success = url;
+    notifyListeners();
+  }
+
+  void createCheckout(String data) async {
+    print(data);
+    try {
+      Uri url = Uri.parse(
+          "${Environment.paymentBaseUrl}/stripe/create-checkout-session");
+
+      final response = await http.post(url,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: data);
+
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        setPaymentUrl(responseData['url']);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }
