@@ -8,6 +8,7 @@ import 'package:fashion_app/src/address/controllers/address_notifier.dart';
 import 'package:fashion_app/src/address/hooks/fetch_default.dart';
 import 'package:fashion_app/src/address/widgets/address_block.dart';
 import 'package:fashion_app/src/cart/controllers/cart_notifier.dart';
+import 'package:fashion_app/src/checkout/views/payment.dart';
 import 'package:fashion_app/src/checkout/widgets/checkout_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -42,40 +43,44 @@ class CheckoutPage extends HookWidget {
       ),
       body: Consumer<CartNotifier>(
         builder: (context, cartNotifier, child) {
-          return ListView(
-            padding: EdgeInsets.symmetric(horizontal: 14.w),
-            children: [
-              // add address block
-              isLoading
-                  ? const SizedBox.shrink()
-                  : AddressBlock(
-                      address: address,
+          return cartNotifier.paymentUrl.contains('https://checkout.stripe.com')
+              ? const PaymentWebView()
+              : ListView(
+                  padding: EdgeInsets.symmetric(horizontal: 14.w),
+                  children: [
+                    // add address block
+                    isLoading
+                        ? const SizedBox.shrink()
+                        : AddressBlock(
+                            address: address,
+                          ),
+
+                    SizedBox(
+                      height: 10.h,
                     ),
 
-              SizedBox(
-                height: 10.h,
-              ),
-
-              SizedBox(
-                height: ScreenUtil().screenHeight * 0.5,
-                child: Column(
-                  children: List.generate(
-                    cartNotifier.selectedCartItems.length,
-                    (i) {
-                      return CheckoutTile(
-                          cart: cartNotifier.selectedCartItems[i]);
-                    },
-                  ),
-                ),
-              )
-            ],
-          );
+                    SizedBox(
+                      height: ScreenUtil().screenHeight * 0.5,
+                      child: Column(
+                        children: List.generate(
+                          cartNotifier.selectedCartItems.length,
+                          (i) {
+                            return CheckoutTile(
+                                cart: cartNotifier.selectedCartItems[i]);
+                          },
+                        ),
+                      ),
+                    )
+                  ],
+                );
         },
       ),
       bottomNavigationBar:
           Consumer<CartNotifier>(builder: (context, cartNotifier, child) {
         return GestureDetector(
-          onTap: () {},
+          onTap: () {
+            // create checkout 
+          },
           child: Container(
             height: 60,
             width: ScreenUtil().screenWidth,
