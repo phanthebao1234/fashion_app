@@ -4,7 +4,7 @@ import 'package:fashion_app/src/auth/views/login_screen.dart';
 import 'package:fashion_app/src/auth/views/registration_screen.dart';
 import 'package:fashion_app/src/categories/views/categories_screen.dart';
 import 'package:fashion_app/src/categories/views/category_page.dart';
-import 'package:fashion_app/src/checkout/views/add_address.dart';
+import 'package:fashion_app/src/address/views/add_address.dart';
 import 'package:fashion_app/src/checkout/views/checkout_screen.dart';
 import 'package:fashion_app/src/entrypoint/views/entrypoint.dart';
 import 'package:fashion_app/src/notification/views/notification_screen.dart';
