@@ -1,3 +1,4 @@
+import 'package:fashion_app/common/services/storage.dart';
 import 'package:fashion_app/common/utils/kcolors.dart';
 import 'package:fashion_app/common/utils/kstrings.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
@@ -8,6 +9,7 @@ import 'package:fashion_app/src/address/controllers/address_notifier.dart';
 import 'package:fashion_app/src/address/hooks/fetch_default.dart';
 import 'package:fashion_app/src/address/widgets/address_block.dart';
 import 'package:fashion_app/src/cart/controllers/cart_notifier.dart';
+import 'package:fashion_app/src/checkout/models/check_out_model.dart';
 import 'package:fashion_app/src/checkout/views/payment.dart';
 import 'package:fashion_app/src/checkout/widgets/checkout_tile.dart';
 import 'package:flutter/material.dart';
@@ -25,27 +27,30 @@ class CheckoutPage extends HookWidget {
     final address = result.address;
     final isLoading = result.isLoading;
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: AppBackButton(
-          onTap: () {
-            // clear the address
-            context.read<AddressNotifier>().clearAddress();
-            context.pop();
-          },
-        ),
-        title: ReusableText(
-          text: AppText.kCheckout,
-          style: appStyle(16, Kolors.kPrimary, FontWeight.bold),
-        ),
-        backgroundColor: Kolors.kWhite,
-        centerTitle: true,
-      ),
-      body: Consumer<CartNotifier>(
-        builder: (context, cartNotifier, child) {
-          return cartNotifier.paymentUrl.contains('https://checkout.stripe.com')
-              ? const PaymentWebView()
-              : ListView(
+    return context
+            .watch<CartNotifier>()
+            .paymentUrl
+            .contains('https://checkout.stripe.com')
+        ? const PaymentWebView()
+        : Scaffold(
+            appBar: AppBar(
+              leading: AppBackButton(
+                onTap: () {
+                  // clear the address
+                  context.read<AddressNotifier>().clearAddress();
+                  context.pop();
+                },
+              ),
+              title: ReusableText(
+                text: AppText.kCheckout,
+                style: appStyle(16, Kolors.kPrimary, FontWeight.bold),
+              ),
+              backgroundColor: Kolors.kWhite,
+              centerTitle: true,
+            ),
+            body: Consumer<CartNotifier>(
+              builder: (context, cartNotifier, child) {
+                return ListView(
                   padding: EdgeInsets.symmetric(horizontal: 14.w),
                   children: [
                     // add address block
@@ -73,29 +78,59 @@ class CheckoutPage extends HookWidget {
                     )
                   ],
                 );
-        },
-      ),
-      bottomNavigationBar:
-          Consumer<CartNotifier>(builder: (context, cartNotifier, child) {
-        return GestureDetector(
-          onTap: () {
-            // create checkout 
-          },
-          child: Container(
-            height: 60,
-            width: ScreenUtil().screenWidth,
-            decoration: BoxDecoration(
-                color: Kolors.kPrimaryLight, borderRadius: kRadiusTop),
-            child: Center(
-              child: ReusableText(
-                  text: address == null
-                      ? "Please an address"
-                      : "Click to Payment",
-                  style: appStyle(16, Kolors.kWhite, FontWeight.w600)),
+              },
             ),
-          ),
-        );
-      }),
-    );
+            bottomNavigationBar:
+                Consumer<CartNotifier>(builder: (context, cartNotifier, child) {
+              return GestureDetector(
+                onTap: () {
+                  if (address == null) {
+                    print('run if');
+                    context.push('addresses');
+                  } else {
+                    print('run eles');
+                    String? accessToken = Storage().getString("accessToken");
+                    List<CartItem> checkoutItems = [];
+
+                    for (var item in cartNotifier.selectedCartItems) {
+                      CartItem data = CartItem(
+                          name: item.product.title,
+                          id: item.product.id,
+                          price: item.product.price.roundToDouble(),
+                          size: item.size,
+                          color: item.color,
+                          cartQuantity: item.quantity);
+
+                      checkoutItems.add(data);
+                    }
+
+                    CreateCheckout data = CreateCheckout(
+                        address: context.read<AddressNotifier>().address == null
+                            ? address.id
+                            : context.read<AddressNotifier>().address!.id,
+                        accesstoken: accessToken.toString(),
+                        fcm: '',
+                        totalAmount: cartNotifier.totalPrice,
+                        cartItems: checkoutItems);
+                    String c = createCheckoutToJson(data);
+                    cartNotifier.createCheckout(c);
+                  }
+                },
+                child: Container(
+                  height: 60,
+                  width: ScreenUtil().screenWidth,
+                  decoration: BoxDecoration(
+                      color: Kolors.kPrimaryLight, borderRadius: kRadiusTop),
+                  child: Center(
+                    child: ReusableText(
+                        text: address == null
+                            ? "Please an address"
+                            : "Click to Payment",
+                        style: appStyle(16, Kolors.kWhite, FontWeight.w600)),
+                  ),
+                ),
+              );
+            }),
+          );
   }
 }
