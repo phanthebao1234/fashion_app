@@ -1,11 +1,14 @@
 import 'package:fashion_app/common/services/storage.dart';
+import 'package:fashion_app/src/notification/controllers/notification_notifier.dart';
 import 'package:fashion_app/src/notification/hooks/results/notification_result.dart';
 import 'package:fashion_app/src/notification/models/notification_model.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fashion_app/common/utils/environment.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
-FetchNotification fetchNotification() {
+FetchNotification fetchNotification(BuildContext context) {
   final notification = useState<List<NotificationModel>>([]);
 
   final isLoading = useState(false);
@@ -44,6 +47,8 @@ FetchNotification fetchNotification() {
     isLoading.value = true;
     fetchData();
   }
+  
+  context.read<NotificationNotifier>().setRefetch(refetch);
 
   return FetchNotification(
     notification: notification.value,
